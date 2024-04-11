@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane fx:id="chatAnchorPane" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+  <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <top>
+      <TitledPane animated="false" prefHeight="60.0" prefWidth="600.0" text="Staff and server info." BorderPane.alignment="CENTER">
+        <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+          <Label alignment="CENTER_RIGHT" text="Mng IP:" GridPane.columnIndex="2" />
+          <Label alignment="CENTER_RIGHT" text="Port:" GridPane.columnIndex="4" />
+          <TextField fx:id="txtStaff" GridPane.columnIndex="1" />
+          <TextField fx:id="txtServerIP" GridPane.columnIndex="3" />
+          <TextField fx:id="txtServerPort" GridPane.columnIndex="5" />
+          <Button fx:id="btnConnect" alignment="CENTER" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" textAlignment="CENTER" GridPane.columnIndex="6" />
+          <Label alignment="CENTER_RIGHT" text="Staff:" />
+        </GridPane>
+      </TitledPane>
+    </top>
+  </BorderPane>
+</AnchorPane>
