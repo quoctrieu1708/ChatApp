@@ -23,7 +23,7 @@ public class ChatViewController {
 
   public void initializeSocket(Socket socket, String staffName) {
     this.socket = socket;
-    this.staffName = this.staffName;
+    this.staffName = staffName;
 
     try {
       reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -57,9 +57,17 @@ public class ChatViewController {
 
   public void appendMessage(String sender, String message) {
     if (sender.equals("Server")) {
-      txtMessage.appendText("Server: " + message + "\n");
+      if (staffName != null) {
+        txtMessage.appendText("Server: " + message + "\n");
+      } else {
+        txtMessage.appendText("Server: " + message + "\n");
+      }
     } else {
-      txtMessage.appendText(staffName + ": " + message + "\n");
+      if (staffName != null) {
+        txtMessage.appendText(staffName + ": " + message + "\n");
+      } else {
+        txtMessage.appendText(sender + ": " + message + "\n");
+      }
     }
   }
 

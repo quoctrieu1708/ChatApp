@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -14,6 +15,10 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ClientController extends Application {
+  @FXML
+  private AnchorPane chatPane;
+  @FXML
+  private TitledPane titledPane;
   @FXML
   private TextField txtStaff;
   @FXML
@@ -47,18 +52,19 @@ public class ClientController extends Application {
         socket = new Socket(serverIP, serverPort);
         writer = new DataOutputStream(socket.getOutputStream());
 
+        txtStaff.setText(staffName);
+
         writer.writeUTF(staffName);
         writer.flush();
 
         FXMLLoader chatLoader = new FXMLLoader(getClass().getResource("ChatView.fxml"));
-        Parent chatRoot = chatLoader.load();
+        AnchorPane chatView = chatLoader.load();
+        chatPane.getChildren().add(chatView);
+        chatPane.setVisible(true);
+        titledPane.setVisible(false);
         ChatViewController controller = chatLoader.getController();
         controller.initializeSocket(socket, staffName);
 
-        Stage chatStage = new Stage();
-        chatStage.setTitle("Chat");
-        chatStage.setScene(new Scene(chatRoot, 600, 400));
-        chatStage.show();
       } catch (NumberFormatException e) {
         System.err.println("Port must be a valid number.");
       } catch (IOException e) {

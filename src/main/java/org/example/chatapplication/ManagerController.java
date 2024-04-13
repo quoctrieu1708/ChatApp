@@ -59,14 +59,11 @@ public class ManagerController extends Application {
         ChatViewController controller = loader.getController();
         controller.initializeSocket(clientSocket, staffName);
 
-        // Gửi tin nhắn "manager is running" tới client
         DataOutputStream writer = new DataOutputStream(clientSocket.getOutputStream());
-        writer.writeUTF("manager is running");
-        writer.flush();
 
-        // Hiển thị tên staff trên tab
         DataInputStream reader = new DataInputStream(clientSocket.getInputStream());
         String staffName = reader.readUTF();
+        this.staffName = staffName;
         Tab tab = new Tab(staffName);
         tab.setContent(root);
         tabPane.getTabs().add(tab);
