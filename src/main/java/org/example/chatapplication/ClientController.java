@@ -1,20 +1,19 @@
 package org.example.chatapplication;
 
-import javafx.scene.control.TextField;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
 public class ClientController extends Application {
-  private AnchorPane chatAnchorPane;
   @FXML
   private TextField txtStaff;
   @FXML
@@ -30,7 +29,6 @@ public class ClientController extends Application {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientChatter.fxml"));
     loader.setController(this);
     Parent root = loader.load();
-    chatAnchorPane = (AnchorPane) loader.getNamespace().get("chatAnchorPane");
 
     primaryStage.setTitle("Client Chat");
     primaryStage.setScene(new Scene(root, 600, 400));
@@ -54,8 +52,13 @@ public class ClientController extends Application {
 
         FXMLLoader chatLoader = new FXMLLoader(getClass().getResource("ChatView.fxml"));
         Parent chatRoot = chatLoader.load();
-        chatAnchorPane.getChildren().add(chatRoot);
+        ChatViewController controller = chatLoader.getController();
+        controller.initializeSocket(socket, staffName);
 
+        Stage chatStage = new Stage();
+        chatStage.setTitle("Chat");
+        chatStage.setScene(new Scene(chatRoot, 600, 400));
+        chatStage.show();
       } catch (NumberFormatException e) {
         System.err.println("Port must be a valid number.");
       } catch (IOException e) {
@@ -70,7 +73,8 @@ public class ClientController extends Application {
     launch(args);
   }
 
-  public void handleConnectButton(ActionEvent actionEvent) {
+  @FXML
+  public void handleConnectButton() {
     connectToServer();
   }
 }

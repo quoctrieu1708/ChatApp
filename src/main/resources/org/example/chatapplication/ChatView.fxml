@@ -30,7 +30,7 @@
               <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
             </padding>
           </Button>
-          <TextArea fx:id="txtMessenges" prefHeight="200.0" prefWidth="200.0" />
+          <TextArea fx:id="txtMessages" prefHeight="200.0" prefWidth="200.0" />
         </GridPane>
       </TitledPane>
     </bottom>

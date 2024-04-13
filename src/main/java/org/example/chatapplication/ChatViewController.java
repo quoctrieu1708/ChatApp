@@ -1,9 +1,7 @@
 package org.example.chatapplication;
 
-import java.time.format.DateTimeFormatterBuilder;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 
 import java.io.BufferedReader;
@@ -17,21 +15,20 @@ public class ChatViewController {
   public TextArea txtMessage;
   @FXML
   public TextArea txtMessages;
-  public Button btnSend;
 
   private Socket socket;
   private BufferedReader reader;
   private DataOutputStream writer;
   private String staffName;
 
-  public void initializeSocket(Socket socket) {
+  public void initializeSocket(Socket socket, String staffName) {
     this.socket = socket;
+    this.staffName = this.staffName;
 
     try {
       reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       writer = new DataOutputStream(socket.getOutputStream());
-
-
+      writer.flush();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -41,35 +38,41 @@ public class ChatViewController {
         while (true) {
           String msg = reader.readLine();
           if (msg != null && !msg.isEmpty()) {
-            txtMessage.appendText(msg + "\n");
+            Platform.runLater(() -> appendMessage("Server", msg));
           }
         }
       } catch (IOException e) {
         e.printStackTrace();
+      } finally {
+        try {
+          if (reader != null) reader.close();
+          if (writer != null) writer.close();
+          if (socket != null) socket.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
     }).start();
   }
 
-  public void setStaffName(String staffName) {
-    this.staffName = staffName;
-    Tab staffNameLabel = null;
-    staffNameLabel.setText("Chatting with: " + staffName);
-  }
-
   public void appendMessage(String sender, String message) {
-    txtMessages.appendText(sender + ": " + message + "\n");
+    if (sender.equals("Server")) {
+      txtMessage.appendText("Server: " + message + "\n");
+    } else {
+      txtMessage.appendText(staffName + ": " + message + "\n");
+    }
   }
 
 
   @FXML
   private void SendMessage() {
-    String message = txtMessage.getText().trim();
+    String message = txtMessages.getText().trim();
     if (!message.isEmpty()) {
       try {
-        writer.writeUTF(message + "\r\n");
+        writer.writeUTF(staffName + ": " + message + "\r\n");
         writer.flush();
-        txtMessages.appendText("You: " + message + "\n");
-        txtMessage.clear();
+        txtMessage.appendText("You: " + message + "\n");
+        txtMessages.clear();
       } catch (IOException ex) {
         ex.printStackTrace();
       }
