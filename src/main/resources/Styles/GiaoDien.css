@@ -1,0 +1,38 @@
+.nen1{
+   -fx-background-color: linear-gradient(to bottom right, #000000, #3533cd);
+   -fx-background-radius: 5px;
+}
+.shadow{
+       -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 8,0,0,0);
+       }
+.gui{
+   -fx-background-color: #0cc0df;
+   -fx-background-radius: 5px;
+   -fx-cursor: hand;
+}
+.gui:hover{
+   -fx-background-color: #25bcbf;
+}
+.khung{
+-fx-background-color: #f5f5f5;
+-fx-border-width: 1.2px;
+-fx-border-radius: 6px;
+-fx-border-color: #3796a7;
+-fx-font-size: 13px;
+
+}
+.khung: focused{
+-fx-background-color: #fff;
+}
+.nento{
+
+ -fx-background-color: linear-gradient(to bottom right, #004aad, #cb6ce6);
+   -fx-background-radius: 5px;}
+   .ketnoi{
+      -fx-background-color: #0097b2;
+      -fx-background-radius: 5px;
+      -fx-cursor: hand;
+   }
+   .ketnoi:hover{
+      -fx-background-color: #25bcbf;
+   }
