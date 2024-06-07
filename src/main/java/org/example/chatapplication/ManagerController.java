@@ -73,7 +73,7 @@ public class ManagerController extends Application {
             while (true) {
               String msg = reader.readUTF();
               if (msg != null && !msg.isEmpty()) {
-                controller.appendMessage(staffName, msg);
+                Platform.runLater(() -> controller.txtMessage.appendText(msg + "\n"));
               }
             }
           } catch (IOException e) {

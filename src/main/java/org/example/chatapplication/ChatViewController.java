@@ -38,7 +38,7 @@ public class ChatViewController {
         while (true) {
           String msg = reader.readLine();
           if (msg != null && !msg.isEmpty()) {
-            Platform.runLater(() -> appendMessage("Server", msg));
+            Platform.runLater(() -> txtMessage.appendText(msg + "\n"));
           }
         }
       } catch (IOException e) {
@@ -54,23 +54,6 @@ public class ChatViewController {
       }
     }).start();
   }
-
-  public void appendMessage(String sender, String message) {
-    if (sender.equals("Server")) {
-      if (staffName != null) {
-        txtMessage.appendText("Server: " + message + "\n");
-      } else {
-        txtMessage.appendText("Server: " + message + "\n");
-      }
-    } else {
-      if (staffName != null) {
-        txtMessage.appendText(staffName + ": " + message + "\n");
-      } else {
-        txtMessage.appendText(sender + ": " + message + "\n");
-      }
-    }
-  }
-
 
   @FXML
   private void SendMessage() {
