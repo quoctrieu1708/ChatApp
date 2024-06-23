@@ -12,9 +12,9 @@ import java.net.Socket;
 
 public class ChatViewController {
   @FXML
-  public TextArea txtMessage;
+  private TextArea txtMessage;
   @FXML
-  public TextArea txtMessages;
+  private TextArea txtMessages;
 
   private Socket socket;
   private BufferedReader reader;
@@ -62,7 +62,6 @@ public class ChatViewController {
       try {
         writer.writeUTF(staffName + ": " + message + "\r\n");
         writer.flush();
-        txtMessage.appendText("You: " + message + "\n");
         txtMessages.clear();
       } catch (IOException ex) {
         ex.printStackTrace();
